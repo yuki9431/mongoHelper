@@ -12,7 +12,7 @@ type MongoDb interface {
 	disconnectDb()
 	InsertDb(interface{}, string) error
 	RemoveDb(interface{}, string) error
-	SearchDb(interface{}, string) error
+	SearchDb(interface{}, interface{}, string) error
 	UpdateDb(interface{}, interface{}, string) error
 }
 
@@ -50,11 +50,11 @@ func (m *mongoDb) RemoveDb(obj interface{}, colectionName string) (err error) {
 }
 
 // mondoDB抽出
-func (m *mongoDb) SearchDb(obj interface{}, colectionName string) (err error) {
+func (m *mongoDb) SearchDb(obj, selector interface{}, colectionName string) (err error) {
 	defer m.disconnectDb()
 
 	col := m.db.C(colectionName)
-	return col.Find(nil).All(obj)
+	return col.Find(selector).All(obj)
 }
 
 // mongoDB更新
