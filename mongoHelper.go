@@ -9,7 +9,7 @@ type mongoDb struct {
 }
 
 type MongoDb interface {
-	disconnectDb()
+	DisconnectDb()
 	InsertDb(interface{}, string) error
 	RemoveDb(interface{}, string) error
 	SearchDb(interface{}, interface{}, string) error
@@ -28,22 +28,18 @@ func NewMongo(dial string, name string) (MongoDb, error) {
 }
 
 // mongoDB切断
-func (m *mongoDb) disconnectDb() {
+func (m *mongoDb) DisconnectDb() {
 	m.db.Session.Close()
 }
 
 // mongoDB挿入
 func (m *mongoDb) InsertDb(obj interface{}, colectionName string) (err error) {
-	defer m.disconnectDb()
-
 	col := m.db.C(colectionName)
 	return col.Insert(obj)
 }
 
 // mongoDB削除
 func (m *mongoDb) RemoveDb(obj interface{}, colectionName string) (err error) {
-	defer m.disconnectDb()
-
 	col := m.db.C(colectionName)
 	_, err = col.RemoveAll(obj)
 	return
@@ -51,16 +47,12 @@ func (m *mongoDb) RemoveDb(obj interface{}, colectionName string) (err error) {
 
 // mondoDB抽出
 func (m *mongoDb) SearchDb(obj, selector interface{}, colectionName string) (err error) {
-	defer m.disconnectDb()
-
 	col := m.db.C(colectionName)
 	return col.Find(selector).All(obj)
 }
 
 // mongoDB更新
 func (m *mongoDb) UpdateDb(selector, update interface{}, colectionName string) (err error) {
-	defer m.disconnectDb()
-
 	col := m.db.C(colectionName)
 	return col.Update(selector, update)
 }
