@@ -39,9 +39,9 @@ func (m *mongoDb) InsertDb(obj interface{}, colectionName string) (err error) {
 }
 
 // mongoDB削除
-func (m *mongoDb) RemoveDb(obj interface{}, colectionName string) (err error) {
+func (m *mongoDb) RemoveDb(selector interface{}, colectionName string) (err error) {
 	col := m.db.C(colectionName)
-	_, err = col.RemoveAll(obj)
+	_, err = col.RemoveAll(selector)
 	return
 }
 
