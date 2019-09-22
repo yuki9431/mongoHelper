@@ -1,4 +1,4 @@
-weather
+mongoHelper
 ====
 ## Overview
 - Go言語用のmongoDBDBドライバ [mgo](https://github.com/go-mgo/mgo)を自分が使いやすいようにカスタマイズ
