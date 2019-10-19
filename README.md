@@ -1,4 +1,4 @@
-mongoHelper
+mongohelper
 ====
 ## Overview
 - Go言語用のmongoDBDBドライバ [mgo](https://github.com/go-mgo/mgo)を自分が使いやすいようにカスタマイズ
@@ -11,7 +11,7 @@ mongoHelper
 
 ## Install
 ```bash:#
-go get github.com/yuki9431/mongoHelper
+go get github.com/yuki9431/mongohelper
 ```
 
 ## Configuration
@@ -19,7 +19,7 @@ go get github.com/yuki9431/mongoHelper
 import (
 	"fmt"
 
-	"github.com/yuki9431/mongoHelper"
+	"github.com/yuki9431/mongohelper"
 )
 
 func main() {
@@ -27,7 +27,7 @@ func main() {
 	mongoName         = "databaseName"
 	
 	// DB設定
-	mongo, err := mongoHelper.NewMongo(mongoDial, mongoName)
+	mongo, err := mongohelper.NewMongo(mongoDial, mongoName)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -78,7 +78,7 @@ if err := mongo.UpdateDb(selector, update, "userInfos"); err != nil {
 
 
 ## Contribution
-1. Fork ([https://github.com/yuki9431/mongoHelper](https://github.com/yuki9431/mongoHelper))
+1. Fork ([https://github.com/yuki9431/mongohelper](https://github.com/yuki9431/mongohelper))
 2. Create a feature branch
 3. Commit your changes
 4. Rebase your local changes against the master branch
