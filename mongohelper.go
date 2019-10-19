@@ -1,4 +1,4 @@
-package mongoHelper
+package mongohelper
 
 import "gopkg.in/mgo.v2"
 
@@ -8,14 +8,17 @@ type mongoDb struct {
 	db   *mgo.Database
 }
 
+// MongoDb インターフェース定義
 type MongoDb interface {
 	DisconnectDb()
 	InsertDb(interface{}, string) error
 	RemoveDb(interface{}, string) error
 	SearchDb(interface{}, interface{}, string) error
 	UpdateDb(interface{}, interface{}, string) error
+	Count(colectionName string) (n int, err error)
 }
 
+// NewMongo mongoDbを返す
 func NewMongo(dial string, name string) (MongoDb, error) {
 	session, err := mgo.Dial(dial)
 	db := session.DB(name)
