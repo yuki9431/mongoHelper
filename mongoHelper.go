@@ -56,3 +56,9 @@ func (m *mongoDb) UpdateDb(selector, update interface{}, colectionName string) (
 	col := m.db.C(colectionName)
 	return col.Update(selector, update)
 }
+
+// ドキュメント数を返す
+func (m *mongoDb) Count(colectionName string) (n int, err error) {
+	col := m.db.C(colectionName)
+	return col.Count()
+}
