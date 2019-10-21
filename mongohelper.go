@@ -1,6 +1,11 @@
 package mongohelper
 
-import "gopkg.in/mgo.v2"
+import (
+	"math/rand"
+	"time"
+
+	"gopkg.in/mgo.v2"
+)
 
 type mongoDb struct {
 	dial string
@@ -14,6 +19,7 @@ type MongoDb interface {
 	InsertDb(interface{}, string) error
 	RemoveDb(interface{}, string) error
 	SearchDb(interface{}, interface{}, string) error
+	RandomSearchDb(interface{}, interface{}, string) error
 	UpdateDb(interface{}, interface{}, string) error
 	Count(colectionName string) (n int, err error)
 }
@@ -52,6 +58,15 @@ func (m *mongoDb) RemoveDb(selector interface{}, colectionName string) (err erro
 func (m *mongoDb) SearchDb(obj, selector interface{}, colectionName string) (err error) {
 	col := m.db.C(colectionName)
 	return col.Find(selector).All(obj)
+}
+
+// mondoDB 1件ランダム抽出
+func (m *mongoDb) RandomSearchDb(obj, selector interface{}, colectionName string) (err error) {
+	rand.Seed(time.Now().UnixNano())
+
+	col := m.db.C(colectionName)
+	colectionCount, err := m.Count(colectionName)
+	return col.Find(selector).Skip(rand.Intn(colectionCount)).Limit(1).All(obj)
 }
 
 // mongoDB更新
